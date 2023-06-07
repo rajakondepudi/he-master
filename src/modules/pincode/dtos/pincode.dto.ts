@@ -2,9 +2,6 @@ import { IsNotEmpty, IsOptional, MinLength, MaxLength, IsNumberString, IsString 
 
 export class PinCodeDTO {
   @IsNotEmpty()
-  @MinLength(6)
-  @MaxLength(6)
-  @IsNumberString()
   PINCODE: number;
 
   @IsOptional()
