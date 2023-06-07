@@ -1,0 +1,7 @@
+export enum ENUM_APP_ENVIRONMENT {
+  PRODUCTION = 'PRD',
+  STAGING = 'STG',
+  DEVELOPMENT = 'DEV',
+  UAT = 'UAT',
+  QA = 'QA',
+}
