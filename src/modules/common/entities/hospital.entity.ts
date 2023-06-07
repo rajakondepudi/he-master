@@ -15,7 +15,7 @@ export class Hospital extends Base {
   ADDRESS: string;
 
   @Column({ nullable: false })
-  PINCODE: string;
+  PINCODE: number;
 
   @Column({ nullable: true })
   CITY_ID: number;

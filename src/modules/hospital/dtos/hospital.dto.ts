@@ -17,10 +17,7 @@ export class HospitalDTO {
   ADDRESS: string;
 
   @IsNotEmpty()
-  @MinLength(6)
-  @MaxLength(6)
-  @IsNumberString()
-  PINCODE: string;
+  PINCODE: number;
 
   @IsOptional()
   @IsEmail()
