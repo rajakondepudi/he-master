@@ -5,7 +5,7 @@ export class PinCodeDTO {
   @MinLength(6)
   @MaxLength(6)
   @IsNumberString()
-  PINCODE: string;
+  PINCODE: number;
 
   @IsOptional()
   @IsString()

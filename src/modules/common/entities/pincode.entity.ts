@@ -6,7 +6,7 @@ export class PinCode extends Base {
   ID: number;
 
   @Column({ unique: true })
-  PINCODE: string;
+  PINCODE: number;
 
   @Column({ nullable: true })
   PINCODE_NAME: string;

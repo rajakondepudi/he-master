@@ -10,7 +10,7 @@ import { AuthGuard } from '@nestjs/passport';
   dto: { create: PinCodeDTO },
   params: {
     slug: {
-      field: 'ID',
+      field: 'PINCODE',
       type: 'number',
       primary: true,
     },
