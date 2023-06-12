@@ -9,4 +9,16 @@ export class PinCodeService extends TypeOrmCrudService<PinCode> {
   constructor(@InjectRepository(PinCode) repo: Repository<PinCode>) {
     super(repo);
   }
+
+  async findByNumericFieldStartsWith(startsWith: number): Promise<PinCode[]> {
+    const entities = await this.repo
+      .createQueryBuilder('PinCode')
+      .leftJoin('PinCode.CITY_ID', 'city')
+      .addSelect(['city.CITY_NAME', 'city.CITY_ID'])
+      .leftJoin('city.STATE_CODE', 'state')
+      .addSelect(['state.STATE_ID', 'state.STATE_CODE', 'state.STATE_NAME'])
+      .where('PinCode.PINCODE :: text LIKE :startsWith', { startsWith: `${startsWith}%` })
+      .getMany();
+    return entities;
+  }
 }

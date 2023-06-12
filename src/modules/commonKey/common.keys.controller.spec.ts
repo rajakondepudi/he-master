@@ -1,14 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PinCodeController } from './pincode.controller';
-import { PinCodeService } from './pincode.service';
-import { City } from '../common/entities/city.entity';
-import { State } from '../common/entities/state.entity';
-import { PinCode } from '../common/entities/pincode.entity';
+import { CommonKeysController } from './common.keys.controller';
+import { CommonKeysService } from './common.keys.service';
+import { CommonKeys } from '../common/entities/common.keys.entity';
 import { PassportModule } from '@nestjs/passport';
 const passportModule = PassportModule.register({ defaultStrategy: 'jwt' });
-describe('PinCodeController', () => {
-  let controller: PinCodeController;
+describe('CommonKeysController', () => {
+  let controller: CommonKeysController;
   let module: TestingModule;
   beforeEach(async () => {
     module = await Test.createTestingModule({
@@ -20,15 +18,15 @@ describe('PinCodeController', () => {
           username: 'postgres',
           password: 'admin',
           database: 'postgres',
-          entities: [State, City, PinCode],
+          entities: [CommonKeys],
         }),
-        TypeOrmModule.forFeature([State, City, PinCode]),
+        TypeOrmModule.forFeature([CommonKeys]),
       ],
-      controllers: [PinCodeController],
-      providers: [PinCodeService],
+      controllers: [CommonKeysController],
+      providers: [CommonKeysService],
     }).compile();
 
-    controller = module.get<PinCodeController>(PinCodeController);
+    controller = module.get<CommonKeysController>(CommonKeysController);
   });
 
   afterAll(async () => {

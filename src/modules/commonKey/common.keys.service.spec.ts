@@ -1,12 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PinCodeService } from './pincode.service';
-import { City } from '../common/entities/city.entity';
-import { State } from '../common/entities/state.entity';
-import { PinCode } from '../common/entities/pincode.entity';
+import { CommonKeysService } from './common.keys.service';
+import { CommonKeys } from '../common/entities/common.keys.entity';
 
-describe('PinCodeService', () => {
-  let service: PinCodeService;
+describe('CommonKeysService', () => {
+  let service: CommonKeysService;
   let module: TestingModule;
 
   beforeEach(async () => {
@@ -18,15 +16,15 @@ describe('PinCodeService', () => {
           username: 'postgres',
           password: 'admin',
           database: 'postgres',
-          entities: [State, City, PinCode],
+          entities: [CommonKeys],
         }),
-        TypeOrmModule.forFeature([State, City, PinCode]),
+        TypeOrmModule.forFeature([CommonKeys]),
       ],
       controllers: [],
-      providers: [PinCodeService],
+      providers: [CommonKeysService],
     }).compile();
 
-    service = module.get<PinCodeService>(PinCodeService);
+    service = module.get<CommonKeysService>(CommonKeysService);
   });
 
   afterAll(async () => {

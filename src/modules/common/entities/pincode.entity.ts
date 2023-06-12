@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Base } from './base.entity';
+import { City } from './city.entity';
 @Entity()
 export class PinCode extends Base {
   @PrimaryGeneratedColumn()
@@ -11,7 +12,9 @@ export class PinCode extends Base {
   @Column({ nullable: true })
   PINCODE_NAME: string;
 
-  @Column({ nullable: true })
+  @ManyToOne(() => City)
+  @JoinColumn({ name: 'CITY_ID', referencedColumnName: 'CITY_ID' })
+  @Column({ nullable: false })
   CITY_ID: number;
 
   @Column({ nullable: true })

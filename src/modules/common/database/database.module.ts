@@ -16,7 +16,7 @@ import { join } from 'path';
         password: configService.get<string>('db.postgres.password'),
         database: configService.get<string>('db.postgres.name'),
         entities: [join(__dirname, '/../**', '*.entity.{ts,js}')],
-        synchronize: false, // should be false at production!
+        synchronize: true, // should be false at production!
       }),
     }),
   ],
