@@ -12,10 +12,7 @@ describe('Hospitalservice', () => {
 
   beforeEach(async () => {
     module = await Test.createTestingModule({
-      imports: [
-        TestDatabaseModule,
-        TypeOrmModule.forFeature([Hospital, PinCode, State, City]),
-      ],
+      imports: [TestDatabaseModule, TypeOrmModule.forFeature([Hospital, PinCode, State, City])],
       controllers: [],
       providers: [HospitalService],
     }).compile();

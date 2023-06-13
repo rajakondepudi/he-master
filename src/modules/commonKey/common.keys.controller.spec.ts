@@ -11,11 +11,7 @@ describe('CommonKeysController', () => {
   let module: TestingModule;
   beforeEach(async () => {
     module = await Test.createTestingModule({
-      imports: [
-        passportModule,
-        TestDatabaseModule,
-        TypeOrmModule.forFeature([CommonKeys]),
-      ],
+      imports: [passportModule, TestDatabaseModule, TypeOrmModule.forFeature([CommonKeys])],
       controllers: [CommonKeysController],
       providers: [CommonKeysService],
     }).compile();

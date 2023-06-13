@@ -14,11 +14,7 @@ describe('Hospitalcontroller', () => {
   let module: TestingModule;
   beforeEach(async () => {
     module = await Test.createTestingModule({
-      imports: [
-        passportModule,
-        TestDatabaseModule,
-        TypeOrmModule.forFeature([Hospital, PinCode, City, State]),
-      ],
+      imports: [passportModule, TestDatabaseModule, TypeOrmModule.forFeature([Hospital, PinCode, City, State])],
       controllers: [HospitalController],
       providers: [HospitalService],
     }).compile();

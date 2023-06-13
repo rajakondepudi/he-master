@@ -9,10 +9,7 @@ describe('CommonKeysService', () => {
 
   beforeEach(async () => {
     module = await Test.createTestingModule({
-      imports: [
-        TestDatabaseModule,
-        TypeOrmModule.forFeature([CommonKeys]),
-      ],
+      imports: [TestDatabaseModule, TypeOrmModule.forFeature([CommonKeys])],
       controllers: [],
       providers: [CommonKeysService],
     }).compile();

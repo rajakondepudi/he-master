@@ -11,7 +11,7 @@ export class PinCodeService extends TypeOrmCrudService<PinCode> {
   }
 
   async findPincodeStartsWith(startsWith: number): Promise<PinCode[]> {
-    let entities = await this.repo
+    const entities = await this.repo
       .createQueryBuilder('PinCode')
       .leftJoin('PinCode.CITY_ID', 'city')
       .addSelect(['city.CITY_NAME', 'city.CITY_ID'])
@@ -19,14 +19,14 @@ export class PinCodeService extends TypeOrmCrudService<PinCode> {
       .addSelect(['state.STATE_ID', 'state.STATE_CODE', 'state.STATE_NAME'])
       .where('PinCode.PINCODE :: text LIKE :startsWith', { startsWith: `${startsWith}%` })
       .getMany();
-     entities.forEach((record)=>{
-      let city=record.CITY_ID
-      let state=record.CITY_ID['STATE_CODE']
-      delete record['CITY_ID']
-      record['CITY_NAME']=city['CITY_NAME']
-      record['STATE_NAME']=state['STATE_NAME']
-      return record
-    })
+    entities.forEach((record) => {
+      const city = record.CITY_ID;
+      const state = record.CITY_ID['STATE_CODE'];
+      delete record.CITY_ID;
+      record['CITY_NAME'] = city['CITY_NAME'];
+      record['STATE_NAME'] = state['STATE_NAME'];
+      return record;
+    });
     return entities;
   }
 }

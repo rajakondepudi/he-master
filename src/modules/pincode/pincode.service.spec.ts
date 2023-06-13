@@ -11,10 +11,7 @@ describe('PinCodeService', () => {
 
   beforeEach(async () => {
     module = await Test.createTestingModule({
-      imports: [
-        TestDatabaseModule,
-        TypeOrmModule.forFeature([State, City, PinCode]),
-      ],
+      imports: [TestDatabaseModule, TypeOrmModule.forFeature([State, City, PinCode])],
       controllers: [],
       providers: [PinCodeService],
     }).compile();
