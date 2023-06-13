@@ -4,7 +4,7 @@ import { PinCodeService } from './pincode.service';
 import { City } from '../common/entities/city.entity';
 import { State } from '../common/entities/state.entity';
 import { PinCode } from '../common/entities/pincode.entity';
-
+import { TestDatabaseModule } from '../common/database/test.database.module';
 describe('PinCodeService', () => {
   let service: PinCodeService;
   let module: TestingModule;
@@ -12,14 +12,7 @@ describe('PinCodeService', () => {
   beforeEach(async () => {
     module = await Test.createTestingModule({
       imports: [
-        TypeOrmModule.forRoot({
-          type: 'postgres',
-          host: '127.0.0.1',
-          username: 'postgres',
-          password: 'admin',
-          database: 'postgres',
-          entities: [State, City, PinCode],
-        }),
+        TestDatabaseModule,
         TypeOrmModule.forFeature([State, City, PinCode]),
       ],
       controllers: [],
@@ -35,5 +28,9 @@ describe('PinCodeService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('findPincodeStartsWith should be defined', () => {
+    expect(service.findPincodeStartsWith).toBeDefined();
   });
 });

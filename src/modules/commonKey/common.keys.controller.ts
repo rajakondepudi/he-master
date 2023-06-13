@@ -15,7 +15,7 @@ import { Crud } from '@nestjsx/crud';
     },
   },
 })
-@Controller('commonkeys')
+@Controller('common-keysets')
 export class CommonKeysController {
   constructor(private readonly service: CommonKeysService) {}
 }

@@ -5,7 +5,7 @@ import { Hospital } from '../common/entities/hospital.entity';
 import { PinCode } from '../common/entities/pincode.entity';
 import { City } from '../common/entities/city.entity';
 import { State } from '../common/entities/state.entity';
-
+import { TestDatabaseModule } from '../common/database/test.database.module';
 describe('Hospitalservice', () => {
   let service: HospitalService;
   let module: TestingModule;
@@ -13,14 +13,7 @@ describe('Hospitalservice', () => {
   beforeEach(async () => {
     module = await Test.createTestingModule({
       imports: [
-        TypeOrmModule.forRoot({
-          type: 'postgres',
-          host: '127.0.0.1',
-          username: 'postgres',
-          password: 'admin',
-          database: 'postgres',
-          entities: [Hospital, PinCode, State, City],
-        }),
+        TestDatabaseModule,
         TypeOrmModule.forFeature([Hospital, PinCode, State, City]),
       ],
       controllers: [],

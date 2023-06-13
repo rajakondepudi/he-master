@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CommonKeysService } from './common.keys.service';
 import { CommonKeys } from '../common/entities/common.keys.entity';
-
+import { TestDatabaseModule } from '../common/database/test.database.module';
 describe('CommonKeysService', () => {
   let service: CommonKeysService;
   let module: TestingModule;
@@ -10,14 +10,7 @@ describe('CommonKeysService', () => {
   beforeEach(async () => {
     module = await Test.createTestingModule({
       imports: [
-        TypeOrmModule.forRoot({
-          type: 'postgres',
-          host: '127.0.0.1',
-          username: 'postgres',
-          password: 'admin',
-          database: 'postgres',
-          entities: [CommonKeys],
-        }),
+        TestDatabaseModule,
         TypeOrmModule.forFeature([CommonKeys]),
       ],
       controllers: [],
