@@ -42,10 +42,10 @@ export class PinCodeController {
   async getOne(@ParsedRequest() ParsedRequest: CrudRequest): Promise<PinCode> {
     const data = await this.service.getOne(ParsedRequest);
     const city = data.CITY_ID;
-    const state = data.CITY_ID['STATE_CODE'];
+    const state = data.CITY_ID["STATE_CODE"];
     delete data.CITY_ID;
-    data['CITY_NAME'] = city['CITY_NAME'];
-    data['STATE_NAME'] = state['STATE_NAME'];
+    data["CITY_NAME"] = city["CITY_NAME"];
+    data["STATE_NAME"] = state["STATE_NAME"];
 
     return data;
   }
@@ -55,11 +55,11 @@ export class PinCodeController {
     const data: PinCode[] | GetManyDefaultResponse<PinCode> = await this.service.getMany(ParsedRequest);
     if (Array.isArray(data)) {
       data.forEach((record: PinCode | GetManyDefaultResponse<PinCode>) => {
-        const city = record['CITY_ID'];
-        const state = record['CITY_ID']['STATE_CODE'];
-        delete record['CITY_ID'];
-        record['CITY_NAME'] = city.CITY_NAME;
-        record['STATE_NAME'] = state.STATE_NAME;
+        const city = record["CITY_ID"];
+        const state = record["CITY_ID"]["STATE_CODE"];
+        delete record["CITY_ID"];
+        record["CITY_NAME"] = city["CITY_NAME"];
+        record["STATE_NAME"] = state["STATE_NAME"];
 
         return record;
       });
