@@ -2,7 +2,7 @@ import { Controller, UseGuards, Get, Param } from '@nestjs/common';
 import { PinCodeService } from './pincode.service';
 import { PinCode } from '../common/entities/pincode.entity';
 import { PinCodeDTO } from './dtos/pincode.dto';
-import { Crud, CrudRequest, GetManyDefaultResponse, Override, ParsedRequest } from '@nestjsx/crud';
+import { Crud, CrudRequest, Override, ParsedRequest } from '@nestjsx/crud';
 @Crud({
   model: { type: PinCode },
   dto: { create: PinCodeDTO },
@@ -40,28 +40,37 @@ export class PinCodeController {
 
   @Override('getOneBase')
   async getOne(@ParsedRequest() ParsedRequest: CrudRequest): Promise<PinCode> {
-    const data = await this.service.getOne(ParsedRequest);
-    const city = data.CITY_ID;
-    const state = data.CITY_ID["STATE_CODE"];
-    delete data.CITY_ID;
-    data["CITY_NAME"] = city["CITY_NAME"];
-    data["STATE_NAME"] = state["STATE_NAME"];
-
+    const data: any = await this.service.getOne(ParsedRequest);
+    let city;
+    let state;
+    if (data.CITY_ID) {
+      city = data.CITY_ID;
+      if (city.STATE_CODE) {
+        state = city.STATE_CODE;
+      }
+      delete data.CITY_ID;
+    }
+    data.CITY_NAME = city.CITY_NAME;
+    data.STATE_NAME = state.STATE_NAME;
     return data;
   }
 
   @Override('getManyBase')
-  async getMany(@ParsedRequest() ParsedRequest): Promise<PinCode[]> {
-    const data: PinCode[] | GetManyDefaultResponse<PinCode> = await this.service.getMany(ParsedRequest);
+  async getMany(@ParsedRequest() ParsedRequest): Promise<any[]> {
+    const data: any = await this.service.getMany(ParsedRequest);
     if (Array.isArray(data)) {
-      data.forEach((record: PinCode | GetManyDefaultResponse<PinCode>) => {
-        const city = record["CITY_ID"];
-        const state = record["CITY_ID"]["STATE_CODE"];
-        delete record["CITY_ID"];
-        record["CITY_NAME"] = city["CITY_NAME"];
-        record["STATE_NAME"] = state["STATE_NAME"];
-
-        return record;
+      data.forEach((record) => {
+        let city;
+        let state;
+        if (record.CITY_ID) {
+          city = record.CITY_ID;
+          if (city.STATE_CODE) {
+            state = city.STATE_CODE;
+          }
+        }
+        delete record.CITY_ID;
+        record.CITY_NAME = city.CITY_NAME;
+        record.STATE_NAME = state.STATE_NAME;
       });
       return data;
     } else {
