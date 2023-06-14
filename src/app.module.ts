@@ -10,6 +10,7 @@ import Config from './shared/config';
 import { HospitalModule } from './modules/hospital/hospital.module';
 import { DatabaseModule } from './modules/common/database/database.module';
 import { AuthModule } from './modules/common/auth/auth.module';
+import { CommonKeysModule } from './modules/commonKey/common.keys.module';
 const logFormat = winston.format.printf((msg) => {
   return `[${msg.timestamp}] [${msg.level}] [expressRequestId=${uuid()}]: ${msg.message}`;
 });
@@ -51,6 +52,7 @@ const logFormat = winston.format.printf((msg) => {
     HospitalModule,
     HealthModule,
     AuthModule,
+    CommonKeysModule,
   ],
   providers: [LoggerService],
 })

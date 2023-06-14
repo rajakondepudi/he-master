@@ -10,15 +10,15 @@ import { join } from 'path';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get<string>('db.postgres.host'),
-        port: configService.get<number>('db.postgres.port'),
-        username: configService.get<string>('db.postgres.username'),
-        password: configService.get<string>('db.postgres.password'),
-        database: configService.get<string>('db.postgres.name'),
+        host: '127.0.0.1',
+        port: 5432,
+        username: 'postgres',
+        password: 'admin',
+        database: 'postgres',
         entities: [join(__dirname, '/../**', '*.entity.{ts,js}')],
-        synchronize: true, // should be false at production!
+        synchronize: false, // should be false at production!
       }),
     }),
   ],
 })
-export class DatabaseModule {}
+export class TestDatabaseModule {}
