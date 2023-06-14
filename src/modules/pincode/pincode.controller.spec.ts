@@ -10,7 +10,7 @@ import { TestDatabaseModule } from '../common/database/test.database.module';
 const passportModule = PassportModule.register({ defaultStrategy: 'jwt' });
 import request from 'supertest';
 import { INestApplication } from '@nestjs/common';
-import { ParsedRequest } from '@nestjsx/crud';
+import * as data from './../../shared/testData/mock.pincode.json'
 
 describe('PinCodeController', () => {
   let app: INestApplication;
@@ -50,23 +50,9 @@ describe('PinCodeController', () => {
   });
 
   it('getone', async () => {
-    const data = {
-      CREATED_BY: null,
-      CREATED_DATETIME: '2023-06-13T05:34:21.699Z',
-      UPDATED_BY: null,
-      UPDATED_DATETIME: '2023-06-13T05:34:21.699Z',
-      EFFECTIVE_DATE: '2023-07-06T18:30:00.000Z',
-      EXPIRED_DATE: null,
-      IS_ACTIVE: 1,
-      ID: 1,
-      PINCODE: 201203,
-      PINCODE_NAME: 'noida',
-      SEQ_NUM: null,
-      CITY_NAME: 'Faleda - Gautam Buddha Nagar',
-      STATE_NAME: 'Uttar Pradesh',
-    };
+   
     const response = await request(app.getHttpServer()).get('/pincodes/201203').expect(200);
-    expect(response.body).toEqual(data);
+    expect(response.body).toEqual(data.oneRecord);
   });
 
   it('getone return error ', async () => {
@@ -74,47 +60,15 @@ describe('PinCodeController', () => {
   });
 
   it('getMany', async () => {
-    const data = [
-      {
-        CREATED_BY: null,
-        CREATED_DATETIME: '2023-06-13T05:34:21.699Z',
-        UPDATED_BY: null,
-        UPDATED_DATETIME: '2023-06-13T05:34:21.699Z',
-        EFFECTIVE_DATE: '2023-07-06T18:30:00.000Z',
-        EXPIRED_DATE: null,
-        IS_ACTIVE: 1,
-        ID: 1,
-        PINCODE: 201203,
-        PINCODE_NAME: 'noida',
-        SEQ_NUM: null,
-        CITY_NAME: 'Faleda - Gautam Buddha Nagar',
-        STATE_NAME: 'Uttar Pradesh',
-      },
-    ];
+
     const response = await request(app.getHttpServer()).get('/pincodes').expect(200);
-    expect(response.body).toEqual(data);
+    expect(response.body).toEqual(data.manyRecord);
   });
 
   it('getMany', async () => {
-    const data = [
-      {
-        CREATED_BY: null,
-        CREATED_DATETIME: '2023-06-13T05:34:21.699Z',
-        UPDATED_BY: null,
-        UPDATED_DATETIME: '2023-06-13T05:34:21.699Z',
-        EFFECTIVE_DATE: '2023-07-06T18:30:00.000Z',
-        EXPIRED_DATE: null,
-        IS_ACTIVE: 1,
-        ID: 1,
-        PINCODE: 201203,
-        PINCODE_NAME: 'noida',
-        SEQ_NUM: null,
-        CITY_NAME: 'Faleda - Gautam Buddha Nagar',
-        STATE_NAME: 'Uttar Pradesh',
-      },
-    ];
+
     const response = await request(app.getHttpServer()).get('/pincodes/start/2').expect(200);
-    expect(response.body).toEqual(data);
+    expect(response.body).toEqual(data.manyRecord);
   });
 
   it('getMany', async () => {
