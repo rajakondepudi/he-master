@@ -10,7 +10,7 @@ import { TestDatabaseModule } from '../common/database/test.database.module';
 const passportModule = PassportModule.register({ defaultStrategy: 'jwt' });
 import request from 'supertest';
 import { INestApplication } from '@nestjs/common';
-import * as data from './../../shared/testData/mock.pincode.json'
+import * as data from './../../shared/testData/mock.pincode.json';
 
 describe('PinCodeController', () => {
   let app: INestApplication;
@@ -50,7 +50,6 @@ describe('PinCodeController', () => {
   });
 
   it('getone', async () => {
-   
     const response = await request(app.getHttpServer()).get('/pincodes/201203').expect(200);
     expect(response.body).toEqual(data.oneRecord);
   });
@@ -60,13 +59,11 @@ describe('PinCodeController', () => {
   });
 
   it('getMany', async () => {
-
     const response = await request(app.getHttpServer()).get('/pincodes').expect(200);
     expect(response.body).toEqual(data.manyRecord);
   });
 
   it('getMany', async () => {
-
     const response = await request(app.getHttpServer()).get('/pincodes/start/2').expect(200);
     expect(response.body).toEqual(data.manyRecord);
   });

@@ -3,7 +3,7 @@ import { IsNotEmpty, IsOptional, MaxLength, IsString, IsNumber, Matches } from '
 export class CommonKeysDTO {
   @IsNotEmpty()
   @IsString()
-  @Matches(`/[a-zA-Z0-9_- ]{2,30}/`)
+  @Matches('/[a-zA-Z0-9_- ]{2,30}/')
   @MaxLength(30)
   TABLE_NAME: string;
 
