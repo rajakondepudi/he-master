@@ -60,12 +60,12 @@ describe('PinCodeController', () => {
 
   it('getMany', async () => {
     const response = await request(app.getHttpServer()).get('/pincodes').expect(200);
-    expect(response.body).toBeInstanceOf(Array)
+    expect(response.body).toBeInstanceOf(Array);
   });
 
   it('getMany', async () => {
     const response = await request(app.getHttpServer()).get('/pincodes/start/2').expect(200);
-    expect(response.body).toBeInstanceOf(Array)
+    expect(response.body).toBeInstanceOf(Array);
   });
 
   it('getMany', async () => {
