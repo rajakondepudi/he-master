@@ -16,7 +16,6 @@ describe('Hospitalcontroller', () => {
   let module: TestingModule;
   let app: INestApplication;
   beforeEach(async () => {
-    
     module = await Test.createTestingModule({
       imports: [passportModule, TestDatabaseModule, TypeOrmModule.forFeature([Hospital, PinCode, City, State])],
       controllers: [HospitalController],
@@ -56,16 +55,14 @@ describe('Hospitalcontroller', () => {
   it('get all hospitals  will return success', async () => {
     const response = await request(app.getHttpServer()).get('/hospitals').expect(200);
     expect(response.body).toBeInstanceOf(Array);
-    response.body.forEach(element => {
-    expect(element).toHaveProperty('HOSPITAL_NAME');
-    expect(element).toHaveProperty('WEBSITE');
-    expect(element).toHaveProperty('PHONE');
-    expect(element).toHaveProperty('ADDRESS');
-    expect(element).toHaveProperty('PINCODE');
-    expect(element).toHaveProperty('CITY_NAME');
-    expect(element).toHaveProperty('STATE_NAME');
-    })
+    response.body.forEach((element) => {
+      expect(element).toHaveProperty('HOSPITAL_NAME');
+      expect(element).toHaveProperty('WEBSITE');
+      expect(element).toHaveProperty('PHONE');
+      expect(element).toHaveProperty('ADDRESS');
+      expect(element).toHaveProperty('PINCODE');
+      expect(element).toHaveProperty('CITY_NAME');
+      expect(element).toHaveProperty('STATE_NAME');
+    });
   });
-
- 
 });
