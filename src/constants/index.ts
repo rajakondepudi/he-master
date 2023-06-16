@@ -6,6 +6,6 @@ export enum ENUM_APP_ENVIRONMENT {
   QA = 'QA',
 }
 
-export enum ERROR_MESSAGE{
-  INVALIDPIN = "Invalid PIN code. It should be a 6-digit number."
+export enum ERROR_MESSAGE {
+  INVALIDPIN = 'Invalid PIN code. It should be a 6-digit number.',
 }

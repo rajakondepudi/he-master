@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsOptional, MaxLength, IsString, IsNumber } from '@nestjs/class-validator';
 import { Matches } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { ERROR_MESSAGE } from './../../../constants'
+import { ERROR_MESSAGE } from './../../../constants';
 export class PinCodeDTO {
   @IsNotEmpty()
   @Transform(({ value }) => value.toString())

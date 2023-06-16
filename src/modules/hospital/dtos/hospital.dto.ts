@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsOptional, MaxLength, IsString, IsEmail } from '@nestjs/class-validator';
 import { Matches, IsNumber, IsDecimal } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { ERROR_MESSAGE } from './../../../constants'
+import { ERROR_MESSAGE } from './../../../constants';
 export class HospitalDTO {
   @IsNotEmpty()
   @IsString()
