@@ -12,7 +12,7 @@ export class ResponserInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const ctx = context.switchToHttp();
     const response = ctx.getResponse();
-    
+
     // Service Name for interceptor
     const servicename = MSService;
     return next.handle().pipe(

@@ -12,7 +12,7 @@ db:
     port: 5432
     name: 'postgres'
     username: 'postgres'
-    password: 'admin'
+    password: 'May@2023'
     ssl: false
     logging: false
 jwt:

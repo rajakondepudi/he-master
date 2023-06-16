@@ -14,7 +14,7 @@ describe('PinCodeService', () => {
           type: 'postgres',
           host: '127.0.0.1',
           username: 'postgres',
-          password: 'admin',
+          password: 'May@2023',
           database: 'postgres',
           entities: [Hospital],
         }),
