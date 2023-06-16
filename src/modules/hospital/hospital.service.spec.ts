@@ -2,24 +2,17 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HospitalService } from './hospital.service';
 import { Hospital } from '../common/entities/hospital.entity';
-
-describe('PinCodeService', () => {
+import { PinCode } from '../common/entities/pincode.entity';
+import { City } from '../common/entities/city.entity';
+import { State } from '../common/entities/state.entity';
+import { TestDatabaseModule } from '../common/database/test.database.module';
+describe('Hospitalservice', () => {
   let service: HospitalService;
   let module: TestingModule;
 
   beforeEach(async () => {
     module = await Test.createTestingModule({
-      imports: [
-        TypeOrmModule.forRoot({
-          type: 'postgres',
-          host: '127.0.0.1',
-          username: 'postgres',
-          password: 'May@2023',
-          database: 'postgres',
-          entities: [Hospital],
-        }),
-        TypeOrmModule.forFeature([Hospital]),
-      ],
+      imports: [TestDatabaseModule, TypeOrmModule.forFeature([Hospital, PinCode, State, City])],
       controllers: [],
       providers: [HospitalService],
     }).compile();

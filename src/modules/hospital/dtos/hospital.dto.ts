@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, MaxLength, IsString, MinLength, IsNumberString, IsEmail } from '@nestjs/class-validator';
+import { IsNotEmpty, IsOptional, MaxLength, IsString, IsEmail, Min, Max } from '@nestjs/class-validator';
 
 export class HospitalDTO {
   @IsNotEmpty()
@@ -17,6 +17,8 @@ export class HospitalDTO {
   ADDRESS: string;
 
   @IsNotEmpty()
+  @Min(100000)
+  @Max(999999)
   PINCODE: number;
 
   @IsOptional()

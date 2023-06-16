@@ -1,7 +1,10 @@
-import { IsNotEmpty, IsOptional, MaxLength, IsNumberString, IsString } from '@nestjs/class-validator';
+import { IsNotEmpty, IsOptional, MaxLength, IsString, IsNumber, Min, Max } from '@nestjs/class-validator';
 
 export class PinCodeDTO {
   @IsNotEmpty()
+  @IsNumber()
+  @Min(100000)
+  @Max(999999)
   PINCODE: number;
 
   @IsOptional()
@@ -9,12 +12,12 @@ export class PinCodeDTO {
   @MaxLength(50)
   PINCODE_NAME: string;
 
-  @IsOptional()
-  @IsNumberString()
+  @IsNotEmpty()
+  @IsNumber()
   CITY_ID: string;
 
   @IsOptional()
   @MaxLength(10)
-  @IsNumberString()
+  @IsNumber()
   SEQ_NUM: string;
 }

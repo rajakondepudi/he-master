@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Base } from './base.entity';
+import { PinCode } from './pincode.entity';
 @Entity()
 export class Hospital extends Base {
   @PrimaryGeneratedColumn()
@@ -14,6 +15,8 @@ export class Hospital extends Base {
   @Column({ unique: true, nullable: false })
   ADDRESS: string;
 
+  @ManyToOne(() => PinCode)
+  @JoinColumn({ name: 'PINCODE', referencedColumnName: 'PINCODE' })
   @Column({ nullable: false })
   PINCODE: number;
 
@@ -23,11 +26,11 @@ export class Hospital extends Base {
   @Column({ nullable: true })
   STATE_ID: number;
 
-  @Column({ nullable: true })
-  LATITUDE: string;
+  @Column({ nullable: true, type: 'float' })
+  LATITUDE: number;
 
-  @Column({ nullable: true })
-  LONGITUDE: string;
+  @Column({ nullable: true, type: 'float' })
+  LONGITUDE: number;
 
   @Column({ nullable: true, unique: true })
   EMAILID: string;

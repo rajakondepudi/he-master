@@ -3,26 +3,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { HospitalController } from './hospital.controller';
 import { HospitalService } from './hospital.service';
 import { Hospital } from '../common/entities/hospital.entity';
+import { PinCode } from '../common/entities/pincode.entity';
+import { City } from '../common/entities/city.entity';
+import { State } from '../common/entities/state.entity';
 import { PassportModule } from '@nestjs/passport';
 const passportModule = PassportModule.register({ defaultStrategy: 'jwt' });
-
-describe('PinCodeController', () => {
+import { TestDatabaseModule } from '../common/database/test.database.module';
+describe('Hospitalcontroller', () => {
   let controller: HospitalController;
   let module: TestingModule;
   beforeEach(async () => {
     module = await Test.createTestingModule({
-      imports: [
-        passportModule,
-        TypeOrmModule.forRoot({
-          type: 'postgres',
-          host: '127.0.0.1',
-          username: 'postgres',
-          password: 'May@2023',
-          database: 'postgres',
-          entities: [Hospital],
-        }),
-        TypeOrmModule.forFeature([Hospital]),
-      ],
+      imports: [passportModule, TestDatabaseModule, TypeOrmModule.forFeature([Hospital, PinCode, City, State])],
       controllers: [HospitalController],
       providers: [HospitalService],
     }).compile();
