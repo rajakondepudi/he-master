@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Base } from './base.entity';
 import { City } from './city.entity';
-@Entity()
+@Entity('PINCODE_M')
 export class PinCode extends Base {
   @PrimaryGeneratedColumn()
   ID: number;
@@ -19,4 +19,6 @@ export class PinCode extends Base {
 
   @Column({ nullable: true })
   SEQ_NUM: string;
+
+  base: Base;
 }

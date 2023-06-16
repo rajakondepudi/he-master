@@ -1,7 +1,7 @@
 import { Controller, UseGuards } from '@nestjs/common';
 import { HospitalService } from './hospital.service';
 import { Hospital } from '../common/entities/hospital.entity';
-import { Crud } from '@nestjsx/crud';
+import { Crud, CrudRequest, Override, ParsedRequest } from '@nestjsx/crud';
 import { HospitalDTO } from './dtos/hospital.dto';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -19,9 +19,77 @@ import { AuthGuard } from '@nestjs/passport';
       primary: true,
     },
   },
+  query: {
+    join: {
+      PINCODE: {
+        allow: ['PINCODE', 'CITY_ID'],
+        eager: true,
+      },
+      'PINCODE.CITY_ID': {
+        alias: 'city',
+        allow: ['CITY_ID', 'CITY_NAME'],
+        eager: true,
+      },
+      'PINCODE.CITY_ID.STATE_CODE': {
+        alias: 'state',
+        allow: ['STATE_CODE', 'STATE_NAME'],
+        eager: true,
+      },
+    },
+  },
 })
 @Controller('hospitals')
 // @UseGuards(AuthGuard())
 export class HospitalController {
   constructor(private readonly service: HospitalService) {}
+
+  @Override('getOneBase')
+  async getOne(@ParsedRequest() parsedRequest: CrudRequest): Promise<Hospital> {
+    const data: any = await this.service.getOne(parsedRequest);
+    let pincode;
+    let city;
+    let state;
+    if (data.PINCODE) {
+      pincode = data.PINCODE;
+      if (pincode.CITY_ID) {
+        city = pincode.CITY_ID;
+        if (city.STATE_CODE) {
+          state = city.STATE_CODE;
+        }
+        delete data.PINCODE;
+      }
+    }
+    data.PINCODE = pincode.PINCODE;
+    data.CITY_NAME = city.CITY_NAME;
+    data.STATE_NAME = state.STATE_NAME;
+    return data;
+  }
+
+  @Override('getManyBase')
+  async getMany(@ParsedRequest() parsedRequest): Promise<any[]> {
+    const data: any = await this.service.getMany(parsedRequest);
+    if (Array.isArray(data)) {
+      data.forEach((record) => {
+        let pincode;
+        let city;
+        let state;
+        if (record.PINCODE) {
+          pincode = record.PINCODE;
+          if (pincode.CITY_ID) {
+            city = pincode.CITY_ID;
+            if (city.STATE_CODE) {
+              state = city.STATE_CODE;
+            }
+          }
+        }
+        delete record.PINCODE;
+        record.PINCODE = pincode.PINCODE;
+        record.CITY_NAME = city.CITY_NAME;
+        record.STATE_NAME = state.STATE_NAME;
+      });
+      return data;
+    } else {
+      return null;
+    }
+  }
 }

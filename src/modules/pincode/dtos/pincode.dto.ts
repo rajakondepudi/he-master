@@ -1,10 +1,10 @@
-import { IsNotEmpty, IsOptional, MaxLength, IsString, IsNumber, Min, Max } from '@nestjs/class-validator';
-
+import { IsNotEmpty, IsOptional, MaxLength, IsString, IsNumber } from '@nestjs/class-validator';
+import { Matches } from 'class-validator';
+import { Transform } from 'class-transformer';
 export class PinCodeDTO {
   @IsNotEmpty()
-  @IsNumber()
-  @Min(100000)
-  @Max(999999)
+  @Transform(({ value }) => value.toString())
+  @Matches(/^[1-9]{1}[0-9]{2}[0-9]{3}$/, { message: 'Invalid PIN code. It should be a 6-digit number.' })
   PINCODE: number;
 
   @IsOptional()
