@@ -1,55 +1,50 @@
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler, BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { ServiceResponse } from '../utils/message.response';
-import { MSService } from '../utils/service.utils';
 import { ResponseClass } from '../utils/response.utils';
+import { RESPONSE_STATUS_CODE_STATIC } from 'src/constants';
 
 @Injectable()
 export class ResponserInterceptor implements NestInterceptor {
   constructor(private readonly responseClass: ResponseClass) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const ctx = context.switchToHttp();
-    const response = ctx.getResponse();
+    const Ctx = context.switchToHttp();
+    const Response = Ctx.getResponse();
 
-    // Service Name for interceptor
-    const servicename = MSService;
     return next.handle().pipe(
       map((data) => {
-        const urlentity = response.req.url.split('/')[3];
-        const entityquery = urlentity.includes('?') ? urlentity.split('?')[0] : urlentity;
-        const entityname = entityquery.slice(0, -1).toUpperCase();
+        const UrlEntity = Response.req.url.split('/')[3];
+        const EntityQuery = UrlEntity.includes('?') ? UrlEntity.split('?')[0] : UrlEntity;
+        const EntityName = EntityQuery.slice(0, -1).toUpperCase();
 
-        const modifiedData = this.responseClass.modifySuccessResponse(data, response.statusCode, entityname, servicename);
-        return modifiedData;
+        const ModifiedData = this.responseClass.modifySuccessResponse(data, Response.statusCode, EntityName);
+        return ModifiedData;
       }),
       catchError((error) => {
-        let errorobj: any, validations: any;
+        let ErrorObj: any, Validations: any;
         if (error.detail) {
-          const errorfieldname = error.detail.split(' ');
-          errorobj = {
-            statusCode: 400,
-          };
-          validations = [
+          const ErrorFieldName = error.detail.split(' ');
+          ErrorObj = RESPONSE_STATUS_CODE_STATIC.STATUS_Code
+          Validations = [
             {
-              type: errorfieldname[1].split('=')[0],
+              type: ErrorFieldName[1].split('=')[0],
               detail: error.detail,
             },
           ];
         } else if (error.response !== undefined) {
           if (error.response.response !== undefined) {
-            errorobj = error.response.response;
-            validations = error.response.response.message.map((e) => {
-              const obj = {
+            ErrorObj = error.response.response;
+            Validations = error.response.response.message.map((e) => {
+              const Obj = {
                 type: e.split(' ')[0],
                 detail: e,
               };
-              return obj;
+              return Obj;
             });
           } else {
-            errorobj = error.response;
-            validations = [
+            ErrorObj = error.response;
+            Validations = [
               {
                 type: error.response.message.split(' ')[0],
                 detail: error.response.message,
@@ -57,18 +52,16 @@ export class ResponserInterceptor implements NestInterceptor {
             ];
           }
         } else {
-          errorobj = {
-            statusCode: 500,
-          };
-          validations = [
+          ErrorObj = RESPONSE_STATUS_CODE_STATIC.STATUS_Code
+          Validations = [
             {
               type: 'Code Error',
               detail: error.message,
             },
           ];
         }
-        const modifiedData = this.responseClass.modifyError(errorobj, validations, servicename);
-        return throwError(() => new HttpException(modifiedData, HttpStatus.BAD_REQUEST));
+        const ModifiedData = this.responseClass.modifyError(ErrorObj, Validations);
+        return throwError(() => new HttpException(ModifiedData, HttpStatus.BAD_REQUEST));
       }),
     );
   }

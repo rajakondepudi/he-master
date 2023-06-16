@@ -5,17 +5,17 @@ import { ConfigService } from '@nestjs/config';
 export function setupSwagger(app: INestApplication) {
   const config = app.get(ConfigService);
   const options = new DocumentBuilder()
-    .setTitle('HDFC_ERGO')
-    .setDescription('API Documentation for the app HDFC_ERGO')
-    .setVersion('1.0.0')
+    .setTitle(config.get<string>('swagger.title'))
+    .setDescription(config.get<string>('swagger.description'))
+    .setVersion(config.get<string>('swagger.version'))
     .addBearerAuth(
       {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        name: 'JWT',
-        description: 'Enter JWT token',
-        in: 'header',
+        type: config.get<any>('swagger.auth.type'),
+        scheme: config.get<any>('swagger.auth.schema'),
+        bearerFormat: config.get<any>('swagger.auth.bearerformat'),
+        name: config.get<any>('swagger.auth.name'),
+        description: config.get<any>('swagger.auth.description'),
+        in: config.get<any>('swagger.auth.in'),
       },
       'JWT-auth',
     )

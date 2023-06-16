@@ -1,17 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { ServiceResponse } from './message.response';
-import { MSService } from './service.utils';
 
 // Class to MOdify Response
 @Injectable()
 export class ResponseClass {
-  responseMethod(service: any, code: any): void {
-    return ServiceResponse(service, code);
+  responseMethod(code: any): void {
+    return ServiceResponse( code);
   }
 
   // Modify Success Response
-  modifySuccessResponse(result: any, code: any, entityname: any = '', servicename: any) {
-    const returnresponse = this.responseMethod(servicename, code);
+  modifySuccessResponse(result: any, code: any, entityname: any = '') {
+    const returnresponse = this.responseMethod( code);
     const modifiedData = {
       responseData: result,
       responseFooter: {
@@ -25,8 +24,8 @@ export class ResponseClass {
   }
 
   // Modify Error Response
-  modifyError(error: any, validations: any = null, servicename: any) {
-    const returnresponse = this.responseMethod(servicename, error.statusCode);
+  modifyError(error: any, validations: any = null) {
+    const returnresponse = this.responseMethod(error.statusCode);
     const modifiedError = {
       responseData: null,
       responseFooter: {

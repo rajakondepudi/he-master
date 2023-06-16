@@ -5,3 +5,7 @@ export enum ENUM_APP_ENVIRONMENT {
   UAT = 'UAT',
   QA = 'QA',
 }
+
+export enum RESPONSE_STATUS_CODE_STATIC {
+  STATUS_Code = 500
+}

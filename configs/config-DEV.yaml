@@ -18,3 +18,16 @@ db:
 jwt:
   secret: 'hegi-microservice'
   expiry: '1h'
+
+swagger:
+  title: 'HDFC_ERGO'
+  description: 'API Documentation for the app HDFC_ERGO'
+  version: '1.0.0'
+  auth: 
+     type: 'http'
+     schema: 'bearer'
+     bearerformat: 'JWT'
+     name: 'JWT'
+     description: 'Enter JWT token'
+     in: 'header'
+     
