@@ -7,5 +7,5 @@ export enum ENUM_APP_ENVIRONMENT {
 }
 
 export enum ERROR_MESSAGE {
-  INVALIDPIN = 'Invalid PIN code. It should be a 6-digit number.',
+  INVALID_PINCODE = 'Invalid PIN code. It should be a 6-digit number.',
 }

@@ -5,7 +5,7 @@ import { ERROR_MESSAGE } from './../../../constants';
 export class PinCodeDTO {
   @IsNotEmpty()
   @Transform(({ value }) => value.toString())
-  @Matches(/^[1-9]{1}[0-9]{2}[0-9]{3}$/, { message: ERROR_MESSAGE.INVALIDPIN })
+  @Matches(/^[1-9]{1}[0-9]{2}[0-9]{3}$/, { message: ERROR_MESSAGE.INVALID_PINCODE })
   PINCODE: number;
 
   @IsOptional()
