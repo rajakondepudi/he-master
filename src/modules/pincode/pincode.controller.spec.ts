@@ -50,7 +50,7 @@ describe('PinCodeController', () => {
   });
 
   it('getone', async () => {
-    const response = await request(app.getHttpServer()).get('/pincodes/201203').expect(200);
+    const response = await request(app.getHttpServer()).get('/pincodes/203643').expect(200);
     expect(response.body).toEqual(data.oneRecord);
   });
 
