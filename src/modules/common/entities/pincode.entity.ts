@@ -19,6 +19,5 @@ export class PinCode extends Base {
 
   @Column({ nullable: true })
   SEQ_NUM: string;
-
-  base: Base;
+  
 }
