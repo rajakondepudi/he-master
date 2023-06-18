@@ -54,8 +54,8 @@ describe('Hospitalcontroller', () => {
 
   it('get all hospitals  will return success', async () => {
     const response = await request(app.getHttpServer()).get('/hospitals').expect(200);
-    expect(response.body).toBeInstanceOf(Array);
-    response.body.forEach((element) => {
+    expect(response.body.data).toBeInstanceOf(Array);
+    response.body.data.forEach((element) => {
       expect(element).toHaveProperty('HOSPITAL_NAME');
       expect(element).toHaveProperty('WEBSITE');
       expect(element).toHaveProperty('PHONE');

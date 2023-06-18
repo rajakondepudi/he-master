@@ -64,8 +64,8 @@ describe('PinCodeController', () => {
 
   it('get all pincode will return success', async () => {
     const response = await request(app.getHttpServer()).get('/pincodes').expect(200);
-    expect(response.body).toBeInstanceOf(Array);
-    response.body.forEach((element) => {
+    expect(response.body.data).toBeInstanceOf(Array);
+    response.body.data.forEach((element) => {
       expect(element).toHaveProperty('PINCODE');
       expect(element).toHaveProperty('PINCODE_NAME');
       expect(element).toHaveProperty('CITY_NAME');

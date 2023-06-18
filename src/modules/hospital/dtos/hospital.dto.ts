@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsOptional, MaxLength, IsString, IsEmail } from '@nestjs/class-validator';
-import { Matches, IsNumber, IsDecimal } from 'class-validator';
+import { Matches, IsNumber, IsDecimal, IsNumberString } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { ERROR_MESSAGE } from './../../../constants';
 export class HospitalDTO {
@@ -44,12 +44,12 @@ export class HospitalDTO {
   FAX: string;
 
   @IsOptional()
-  @IsNumber()
+  @IsNumberString()
   @IsDecimal()
   LATITUDE: number;
 
   @IsOptional()
-  @IsNumber()
+  @IsNumberString()
   @IsDecimal()
   LONGITUDE: number;
 }

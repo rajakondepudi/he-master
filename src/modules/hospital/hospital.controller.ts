@@ -4,7 +4,6 @@ import { Hospital } from '../common/entities/hospital.entity';
 import { Crud, CrudRequest, Override, ParsedRequest } from '@nestjsx/crud';
 import { HospitalDTO } from './dtos/hospital.dto';
 import { AuthGuard } from '@nestjs/passport';
-
 @Crud({
   model: {
     type: Hospital,
@@ -20,6 +19,9 @@ import { AuthGuard } from '@nestjs/passport';
     },
   },
   query: {
+    allow:['HOSPITAL_NAME','HOSPITAL_TYPE','ADDRESS','LATITUDE','LONGITUDE','EMAILID','WEBSITE','PHONE','FAX','SEQ_NUM','CREATED_BY','CREATED_DATETIME','UPDATED_BY','UPDATED_DATETIME','EFFECTIVE_DATE','EXPIRED_DATE','IS_ACTIVE'],
+    alwaysPaginate:true,
+    limit:6,
     join: {
       PINCODE: {
         allow: ['PINCODE', 'CITY_ID'],
@@ -67,9 +69,9 @@ export class HospitalController {
 
   @Override('getManyBase')
   async getMany(@ParsedRequest() parsedRequest): Promise<any[]> {
-    const data: any = await this.service.getMany(parsedRequest);
-    if (Array.isArray(data)) {
-      data.forEach((record) => {
+    const records: any = await this.service.getMany(parsedRequest);
+    if (Array.isArray(records.data)) {
+      records.data.forEach((record) => {
         let pincode;
         let city;
         let state;
@@ -87,7 +89,7 @@ export class HospitalController {
         record.CITY_NAME = city.CITY_NAME;
         record.STATE_NAME = state.STATE_NAME;
       });
-      return data;
+      return records;
     } else {
       return null;
     }
