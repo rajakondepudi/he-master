@@ -14,9 +14,20 @@ import { Crud, CrudRequest, Override, ParsedRequest } from '@nestjsx/crud';
     },
   },
   query: {
-    allow:['PINCODE','PINCODE_NAME','SEQ_NUM','CREATED_BY','CREATED_DATETIME','UPDATED_BY','UPDATED_DATETIME','EFFECTIVE_DATE','EXPIRED_DATE','IS_ACTIVE'],
-    alwaysPaginate:true,
-    limit:6,
+    allow: [
+      'PINCODE',
+      'PINCODE_NAME',
+      'SEQ_NUM',
+      'CREATED_BY',
+      'CREATED_DATETIME',
+      'UPDATED_BY',
+      'UPDATED_DATETIME',
+      'EFFECTIVE_DATE',
+      'EXPIRED_DATE',
+      'IS_ACTIVE',
+    ],
+    alwaysPaginate: true,
+    limit: 6,
     join: {
       CITY_ID: {
         alias: 'city',
