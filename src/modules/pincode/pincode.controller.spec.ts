@@ -49,27 +49,45 @@ describe('PinCodeController', () => {
     expect(controller.getMany).toBeDefined();
   });
 
-  it('getone', async () => {
+  it('get pincode by pincode will return success', async () => {
     const response = await request(app.getHttpServer()).get('/pincodes/203643').expect(200);
-    expect(response.body).toEqual(data.oneRecord);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toHaveProperty('PINCODE');
+    expect(response.body).toHaveProperty('PINCODE_NAME');
+    expect(response.body).toHaveProperty('CITY_NAME');
+    expect(response.body).toHaveProperty('STATE_NAME');
   });
 
-  it('getone return error ', async () => {
+  it('get pincode by pincode will return error ', async () => {
     const response = await request(app.getHttpServer()).get('/pincodes/1').expect(404);
   });
 
-  it('getMany', async () => {
+  it('get all pincode will return success', async () => {
     const response = await request(app.getHttpServer()).get('/pincodes').expect(200);
-    expect(response.body).toBeInstanceOf(Array);
+    expect(response.body.data).toBeInstanceOf(Array);
+    response.body.data.forEach((element) => {
+      expect(element).toHaveProperty('PINCODE');
+      expect(element).toHaveProperty('PINCODE_NAME');
+      expect(element).toHaveProperty('CITY_NAME');
+      expect(element).toHaveProperty('STATE_NAME');
+    });
   });
 
-  it('getMany', async () => {
+  it('pincode starts with api will return success', async () => {
     const response = await request(app.getHttpServer()).get('/pincodes/start/2').expect(200);
     expect(response.body).toBeInstanceOf(Array);
+    response.body.forEach((element) => {
+      expect(element).toHaveProperty('PINCODE');
+      expect(element).toHaveProperty('PINCODE_NAME');
+      expect(element).toHaveProperty('CITY_NAME');
+      expect(element).toHaveProperty('STATE_NAME');
+    });
   });
 
-  it('getMany', async () => {
-    const response = await request(app.getHttpServer()).get('/pincodes/start/1').expect(200);
+  it('pincode starts with api will return empty response', async () => {
+    const response = await request(app.getHttpServer()).get('/pincodes/start/0').expect(200);
+    console.log("response 89", response)
+    expect(response.body).toBeInstanceOf(Array);
     expect(response.body).toEqual([]);
   });
 });

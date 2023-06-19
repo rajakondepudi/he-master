@@ -1,7 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Base } from './base.entity';
 import { PinCode } from './pincode.entity';
-@Entity()
+
+@Entity('HOSPITAL_M')
 export class Hospital extends Base {
   @PrimaryGeneratedColumn()
   HOSPITAL_ID: number;
@@ -19,12 +20,6 @@ export class Hospital extends Base {
   @JoinColumn({ name: 'PINCODE', referencedColumnName: 'PINCODE' })
   @Column({ nullable: false })
   PINCODE: number;
-
-  @Column({ nullable: true })
-  CITY_ID: number;
-
-  @Column({ nullable: true })
-  STATE_ID: number;
 
   @Column({ nullable: true, type: 'float' })
   LATITUDE: number;

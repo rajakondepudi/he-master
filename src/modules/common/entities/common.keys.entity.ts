@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { Base } from './base.entity';
 
-@Entity()
+@Entity('COMMON_M')
 export class CommonKeys extends Base {
   @PrimaryGeneratedColumn()
   KEY_ID: number;
