@@ -3,24 +3,24 @@ import { INestApplication } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 export function setupSwagger(app: INestApplication) {
-  const config = app.get(ConfigService);
-  const options = new DocumentBuilder()
-    .setTitle(config.get<string>('swagger.title'))
-    .setDescription(config.get<string>('swagger.description'))
-    .setVersion(config.get<string>('swagger.version'))
+  const Config = app.get(ConfigService);
+  const Options = new DocumentBuilder()
+    .setTitle(Config.get<string>('swagger.title'))
+    .setDescription(Config.get<string>('swagger.description'))
+    .setVersion(Config.get<string>('swagger.version'))
     .addBearerAuth(
       {
-        type: config.get<any>('swagger.auth.type'),
-        scheme: config.get<any>('swagger.auth.schema'),
-        bearerFormat: config.get<any>('swagger.auth.bearerformat'),
-        name: config.get<any>('swagger.auth.name'),
-        description: config.get<any>('swagger.auth.description'),
-        in: config.get<any>('swagger.auth.in'),
+        type: Config.get<any>('swagger.auth.type'),
+        scheme: Config.get<any>('swagger.auth.schema'),
+        bearerFormat: Config.get<any>('swagger.auth.bearerformat'),
+        name: Config.get<any>('swagger.auth.name'),
+        description: Config.get<any>('swagger.auth.description'),
+        in: Config.get<any>('swagger.auth.in'),
       },
       'JWT-auth',
     )
     .build();
 
-  const document = SwaggerModule.createDocument(app, options);
+  const document = SwaggerModule.createDocument(app, Options);
   SwaggerModule.setup('api', app, document);
 }

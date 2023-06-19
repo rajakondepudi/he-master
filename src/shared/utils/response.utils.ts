@@ -1,40 +1,40 @@
 import { Injectable } from '@nestjs/common';
-import { ServiceResponse } from './message.response';
+import { serviceResponse } from './message.response';
 
 // Class to MOdify Response
 @Injectable()
 export class ResponseClass {
   responseMethod(code: any): void {
-    return ServiceResponse( code);
+    return serviceResponse(code);
   }
 
   // Modify Success Response
   modifySuccessResponse(result: any, code: any, entityname: any = '') {
-    const returnresponse = this.responseMethod( code);
-    const modifiedData = {
+    const ReturnResponse = this.responseMethod(code);
+    const ModifiedData = {
       responseData: result,
       responseFooter: {
-        status: Object(returnresponse).status,
-        code: Object(returnresponse).code,
-        message: `${entityname} ${Object(returnresponse).message}`,
+        status: Object(ReturnResponse).status,
+        code: Object(ReturnResponse).code,
+        message: `${entityname} ${Object(ReturnResponse).message}`,
         validations: null,
       },
     };
-    return modifiedData;
+    return ModifiedData;
   }
 
   // Modify Error Response
   modifyError(error: any, validations: any = null) {
-    const returnresponse = this.responseMethod(error.statusCode);
-    const modifiedError = {
+    const ReturnResponse = this.responseMethod(error.statusCode);
+    const ModifiedError = {
       responseData: null,
       responseFooter: {
-        status: Object(returnresponse).status,
-        code: Object(returnresponse).code,
-        message: Object(returnresponse).message,
+        status: Object(ReturnResponse).status,
+        code: Object(ReturnResponse).code,
+        message: Object(ReturnResponse).message,
         validations,
       },
     };
-    return modifiedError;
+    return ModifiedError;
   }
 }

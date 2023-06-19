@@ -1,5 +1,5 @@
 // HttpStatus Codes
-export function ServiceResponse(code: any): any {
+export function serviceResponse(code: any): any {
   const StatusMessages = {
     200: {
       status: 'SUCCESS',
