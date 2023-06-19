@@ -25,7 +25,7 @@ export class ResponseClass {
 
   // Modify Error Response
   modifyError(error: any, validations: any = null) {
-    const StatusCode = error.statusCode? error.statusCode: error.STATUS_CODE
+    const StatusCode = error.statusCode ? error.statusCode : error.STATUS_CODE;
     const ReturnResponse = this.responseMethod(StatusCode);
     const ModifiedError = {
       responseData: null,
