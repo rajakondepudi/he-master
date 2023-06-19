@@ -3,6 +3,10 @@ import { PinCodeService } from './pincode.service';
 import { PinCode } from '../common/entities/pincode.entity';
 import { PinCodeDTO } from './dtos/pincode.dto';
 import { Crud, CrudRequest, Override, ParsedRequest } from '@nestjsx/crud';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('PinCode')
 @Crud({
   model: { type: PinCode },
   dto: { create: PinCodeDTO },
@@ -44,6 +48,7 @@ import { Crud, CrudRequest, Override, ParsedRequest } from '@nestjsx/crud';
 })
 @Controller('pincodes')
 // @UseGuards(AuthGuard())
+// @ApiBearerAuth('JWT-auth')   // Authetication for Swagger
 export class PinCodeController {
   constructor(private readonly service: PinCodeService) {}
 

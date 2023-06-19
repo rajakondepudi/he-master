@@ -4,6 +4,9 @@ import { Hospital } from '../common/entities/hospital.entity';
 import { Crud, CrudRequest, Override, ParsedRequest } from '@nestjsx/crud';
 import { HospitalDTO } from './dtos/hospital.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('Hospital')
 @Crud({
   model: {
     type: Hospital,
@@ -60,6 +63,7 @@ import { AuthGuard } from '@nestjs/passport';
 })
 @Controller('hospitals')
 // @UseGuards(AuthGuard())
+// @ApiBearerAuth('JWT-auth')  // Authetication for Swagger
 export class HospitalController {
   constructor(private readonly service: HospitalService) {}
 

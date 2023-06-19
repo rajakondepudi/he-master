@@ -1,4 +1,12 @@
-import { Injectable, ArgumentMetadata, BadRequestException, ValidationPipe, UnprocessableEntityException } from '@nestjs/common';
+import {
+  Injectable,
+  ArgumentMetadata,
+  BadRequestException,
+  ValidationPipe,
+  UnprocessableEntityException,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 
 @Injectable()
 export class ValidateInputPipe extends ValidationPipe {
@@ -6,13 +14,7 @@ export class ValidateInputPipe extends ValidationPipe {
     try {
       return await super.transform(value, metadata);
     } catch (e) {
-      if (e instanceof BadRequestException) {
-        throw new UnprocessableEntityException(this.handleError(e.message));
-      }
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     }
-  }
-
-  private handleError(errors) {
-    return errors.map((error) => error.constraints);
   }
 }
