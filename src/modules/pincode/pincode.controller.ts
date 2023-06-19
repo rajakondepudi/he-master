@@ -14,6 +14,20 @@ import { Crud, CrudRequest, Override, ParsedRequest } from '@nestjsx/crud';
     },
   },
   query: {
+    allow: [
+      'PINCODE',
+      'PINCODE_NAME',
+      'SEQ_NUM',
+      'CREATED_BY',
+      'CREATED_DATETIME',
+      'UPDATED_BY',
+      'UPDATED_DATETIME',
+      'EFFECTIVE_DATE',
+      'EXPIRED_DATE',
+      'IS_ACTIVE',
+    ],
+    alwaysPaginate: true,
+    limit: 6,
     join: {
       CITY_ID: {
         alias: 'city',
@@ -57,9 +71,9 @@ export class PinCodeController {
 
   @Override('getManyBase')
   async getMany(@ParsedRequest() ParsedRequest): Promise<any[]> {
-    const data: any = await this.service.getMany(ParsedRequest);
-    if (Array.isArray(data)) {
-      data.forEach((record) => {
+    const records: any = await this.service.getMany(ParsedRequest);
+    if (Array.isArray(records.data)) {
+      records.data.forEach((record) => {
         let city;
         let state;
         if (record.CITY_ID) {
@@ -72,7 +86,7 @@ export class PinCodeController {
         record.CITY_NAME = city.CITY_NAME;
         record.STATE_NAME = state.STATE_NAME;
       });
-      return data;
+      return records;
     } else {
       return null;
     }

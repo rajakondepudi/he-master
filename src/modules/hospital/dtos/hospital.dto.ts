@@ -1,5 +1,7 @@
-import { IsNotEmpty, IsOptional, MaxLength, IsString, IsEmail, Min, Max } from '@nestjs/class-validator';
-
+import { IsNotEmpty, IsOptional, MaxLength, IsString, IsEmail } from '@nestjs/class-validator';
+import { Matches, IsNumber, IsDecimal, IsNumberString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { ERROR_MESSAGE } from './../../../constants';
 export class HospitalDTO {
   @IsNotEmpty()
   @IsString()
@@ -17,8 +19,8 @@ export class HospitalDTO {
   ADDRESS: string;
 
   @IsNotEmpty()
-  @Min(100000)
-  @Max(999999)
+  @Transform(({ value }) => value.toString())
+  @Matches(/^[1-9]{1}[0-9]{2}[0-9]{3}$/, { message: ERROR_MESSAGE.INVALID_PINCODE })
   PINCODE: number;
 
   @IsOptional()
@@ -31,20 +33,23 @@ export class HospitalDTO {
   @MaxLength(500)
   WEBSITE: string;
 
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(200)
+  PHONE: string;
+
   @IsOptional()
   @IsString()
-  @MaxLength(20)
+  @MaxLength(200)
   FAX: string;
 
   @IsOptional()
-  CITY_ID: number;
+  @IsNumberString()
+  @IsDecimal()
+  LATITUDE: number;
 
   @IsOptional()
-  STATE_ID: number;
-
-  @IsOptional()
-  LATITUDE: string;
-
-  @IsOptional()
-  LONGITUDE: string;
+  @IsNumberString()
+  @IsDecimal()
+  LONGITUDE: number;
 }
