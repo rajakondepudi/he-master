@@ -17,8 +17,8 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   // Handle all response globally
-  const ResponseInstance = new ResponseClass();
-  app.useGlobalInterceptors(new ResponserInterceptor(ResponseInstance));
+  const responseInstance = new ResponseClass();
+  app.useGlobalInterceptors(new ResponserInterceptor(responseInstance));
 
   // Register Swagger
   setupSwagger(app);

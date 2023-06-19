@@ -10,32 +10,32 @@ export class ResponseClass {
 
   // Modify Success Response
   modifySuccessResponse(result: any, code: any, entityname: any = '') {
-    const ReturnResponse = this.responseMethod(code);
-    const ModifiedData = {
+    const returnResponse = this.responseMethod(code);
+    const modifiedData = {
       responseData: result,
       responseFooter: {
-        status: Object(ReturnResponse).status,
-        code: Object(ReturnResponse).code,
-        message: `${entityname} ${Object(ReturnResponse).message}`,
+        status: Object(returnResponse).status,
+        code: Object(returnResponse).code,
+        message: `${entityname} ${Object(returnResponse).message}`,
         validations: null,
       },
     };
-    return ModifiedData;
+    return modifiedData;
   }
 
   // Modify Error Response
   modifyError(error: any, validations: any = null) {
-    const StatusCode = error.statusCode ? error.statusCode : error.STATUS_CODE;
-    const ReturnResponse = this.responseMethod(StatusCode);
-    const ModifiedError = {
+    const statusCode = error.statusCode ? error.statusCode : error.STATUS_CODE;
+    const returnResponse = this.responseMethod(statusCode);
+    const modifiedError = {
       responseData: null,
       responseFooter: {
-        status: Object(ReturnResponse).status,
-        code: Object(ReturnResponse).code,
-        message: Object(ReturnResponse).message,
+        status: Object(returnResponse).status,
+        code: Object(returnResponse).code,
+        message: Object(returnResponse).message,
         validations,
       },
     };
-    return ModifiedError;
+    return modifiedError;
   }
 }
