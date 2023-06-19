@@ -7,5 +7,5 @@ export enum ENUM_APP_ENVIRONMENT {
 }
 
 export enum RESPONSE_STATUS_CODE_STATIC {
-  STATUS_CODE = 500
+  STATUS_CODE = 500,
 }

@@ -6,7 +6,7 @@ import { RESPONSE_STATUS_CODE_STATIC } from 'src/constants';
 
 @Injectable()
 export class ResponserInterceptor implements NestInterceptor {
-  constructor(private readonly responseClass: ResponseClass) { }
+  constructor(private readonly responseClass: ResponseClass) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const Ctx = context.switchToHttp();
@@ -25,7 +25,7 @@ export class ResponserInterceptor implements NestInterceptor {
         let ErrorObj: any, Validations: any;
         if (error.detail) {
           const ErrorFieldName = error.detail.split(' ');
-          ErrorObj = RESPONSE_STATUS_CODE_STATIC.STATUS_CODE
+          ErrorObj = RESPONSE_STATUS_CODE_STATIC.STATUS_CODE;
           Validations = [
             {
               type: ErrorFieldName[1].split('=')[0],
@@ -52,7 +52,7 @@ export class ResponserInterceptor implements NestInterceptor {
             ];
           }
         } else {
-          ErrorObj = RESPONSE_STATUS_CODE_STATIC.STATUS_CODE
+          ErrorObj = RESPONSE_STATUS_CODE_STATIC.STATUS_CODE;
           Validations = [
             {
               type: 'Code Error',
