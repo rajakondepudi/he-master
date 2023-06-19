@@ -86,7 +86,6 @@ describe('PinCodeController', () => {
 
   it('pincode starts with api will return empty response', async () => {
     const response = await request(app.getHttpServer()).get('/pincodes/start/0').expect(200);
-    console.log("response 89", response)
     expect(response.body).toBeInstanceOf(Array);
     expect(response.body).toEqual([]);
   });

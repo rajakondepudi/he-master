@@ -25,7 +25,7 @@ export class ResponserInterceptor implements NestInterceptor {
         let ErrorObj: any, Validations: any;
         if (error.detail) {
           const ErrorFieldName = error.detail.split(' ');
-          ErrorObj = RESPONSE_STATUS_CODE_STATIC.STATUS_CODE;
+          ErrorObj = RESPONSE_STATUS_CODE_STATIC;
           Validations = [
             {
               type: ErrorFieldName[1].split('=')[0],
