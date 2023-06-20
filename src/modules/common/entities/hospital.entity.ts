@@ -3,10 +3,8 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 't
 import { Base } from './base.entity';
 import { PinCode } from './pincode.entity';
 
-
 @Entity('HOSPITAL_M')
 export class Hospital extends Base {
-
   @ApiProperty()
   @PrimaryGeneratedColumn()
   HOSPITAL_ID: number;
