@@ -13,6 +13,7 @@ COPY ./tsconfig.build.json ./
 COPY ./tsconfig.json ./
 
 RUN npm install -g @nestjs/cli
+RUN npm install husky --save-dev
 RUN npm ci --only=production
 
 RUN npm run build
