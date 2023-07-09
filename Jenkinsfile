@@ -38,6 +38,7 @@ pipeline
                       {
                          sh 'gcloud auth activate-service-account --key-file="$GCLOUD_KEY"'
                          sh 'gcloud config set project jenkins-cicd-391104'
+                         sh 'gcloud auth configure-docker'
           
                          // Push Docker image to GCR
                            sh 'docker push gcr.io/jenkins-cicd-391104/${DOCKER_IMAGE_NAME}'
