@@ -3,7 +3,7 @@ pipeline
     agent any
       environment 
       {
-        DOCKER_IMAGE_NAME = "gcr.io/jenkins-cicd-391104/hdfcero-master:${env.BUILD_NUMBER}"
+        DOCKER_IMAGE_NAME = "hdfcero-master:${env.BUILD_NUMBER}"
          CREDENTIALS_ID = 'google'
          
       }
@@ -29,11 +29,22 @@ pipeline
 
           stage('Tag and Push') 
           {
-          steps 
-             {
-              docker.withRegistry('https://gcr.io', 'gcr: google')
-             sh 'docker push ${DOCKER_IMAGE_NAME}'
+          steps {
+                // Tag Docker image with GCR repository URL
+                 sh 'docker tag ${DOCKER_IMAGE_NAME} gcr.io/jenkins-cicd-391104/${DOCKER_IMAGE_NAME}'
+        
+                  // Authenticate with Google Cloud using service account key
+                   withCredentials([file(credentialsId: env.CREDENTIALS_ID, variable: 'GCLOUD_KEY')])  
+                      {
+                         sh 'gcloud auth activate-service-account --key-file="$GCLOUD_KEY"'
+                         sh 'gcloud config set project jenkins-cicd-391104'
+                         sh 'gcloud auth configure-docker'
+          
+                         // Push Docker image to GCR
+                           sh 'docker push gcr.io/jenkins-cicd-391104/${DOCKER_IMAGE_NAME}'
+                      } 
+                  }
             }
-          }
+       
        }
    }
