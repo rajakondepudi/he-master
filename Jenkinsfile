@@ -29,8 +29,11 @@ pipeline
 
           stage('Tag and Push') 
           {
-          steps {
+          steps 
+             {
               docker.withRegistry('https://gcr.io', 'gcr: google')
              sh 'docker push ${DOCKER_IMAGE_NAME}'
+            }
+          }
        }
    }
