@@ -27,14 +27,23 @@ pipeline
               }
            }
 
-stage('Push image') 
+          stage('Tag and Push') 
           {
-             docker.withRegistry('https://eu.gcr.io', 'gcr:[CREDENTIALS_ID]') 
-             {
-               app.push("${env.BUILD_NUMBER}")
-               app.push("latest")
-             }
-           }
+          steps {
+                // Tag Docker image with GCR repository URL
+                 def image = sh 'docker tag ${DOCKER_IMAGE_NAME} gcr.io/jenkins-cicd-391104/${DOCKER_IMAGE_NAME}'
+        
+                  // Authenticate with Google Cloud using service account key
+                   withCredentials([file(credentialsId: 'CREDENTIALS_ID', variable: 'GCLOUD_KEY')]) 
+                      {
+                         sh 'gcloud auth activate-service-account --key-file="$GCLOUD_KEY"'
+                         sh 'gcloud config set project your-project'
+          
+                         // Push Docker image to GCR
+                           sh 'docker push image'
+                      } 
+                  }
+            }
        
        }
    }
