@@ -5,6 +5,10 @@ pipeline
       {
         DOCKER_IMAGE_NAME = "hdfcero-master:${env.BUILD_NUMBER}"
          CREDENTIALS_ID = 'google'
+         PROJECT_ID = '	jenkins-cicd-391104'
+         GKE_CLUSTER = 'jenkins-k8s-autopilot-cluster-1'
+         GKE_ZONE = 'asia-south1'
+         NAMESPACE = 'default'
          
       }
     stages 
@@ -45,6 +49,23 @@ pipeline
                       } 
                   }
             }
+           stage('Deploy to Gke Cluster') 
+           {
+            steps
+               {
+                  
+                 // Authenticate with Google Cloud using service account key
+                    withCredentials([file(credentialsId: env.CREDENTIALS_ID, variable: 'GCLOUD_KEY')]) 
+                       {
+                          sh 'gcloud auth activate-service-account --key-file="$GCLOUD_KEY"'
+                          sh 'gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE'
+      
+                          // Apply the deployment YAML to the GKE cluster
+                          sh 'kubectl apply -f deployment.yaml --namespace $NAMESPACE'
+                       }
+               }
+            }    
+
        
        }
    }
