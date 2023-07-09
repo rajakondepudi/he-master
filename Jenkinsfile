@@ -5,8 +5,8 @@ pipeline
       {
         DOCKER_IMAGE_NAME = "hdfcero-master:${env.BUILD_NUMBER}"
         GCR_IMAGE_NAME = "gcr.io/${jenkins-cicd-391104}/${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}"
-        GCR_SERVICE_ACCOUNT_KEY = credentials('google')
-   }
+        GCR_SERVICE_ACCOUNT_KEY = credentials('gcr')
+      }
     stages 
        {
         stage('Checkout') 
