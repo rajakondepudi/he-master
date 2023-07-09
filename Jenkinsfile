@@ -34,7 +34,7 @@ pipeline
                  sh 'docker tag ${DOCKER_IMAGE_NAME} gcr.io/jenkins-cicd-391104/${DOCKER_IMAGE_NAME}'
         
                   // Authenticate with Google Cloud using service account key
-                   withCredentials([file(credentialsId: 'CREDENTIALS_ID', variable: 'GCLOUD_KEY')])  
+                   withCredentials([file(credentialsId: 'google-gcr', variable: 'GCLOUD_KEY')])  
                       {
                          sh 'gcloud auth activate-service-account --key-file="$GCLOUD_KEY"'
                          sh 'gcloud config set project your-project'
