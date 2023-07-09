@@ -29,14 +29,18 @@ pipeline
           stage('Push to GCR')
              {
                steps 
+                {
+                  withCredentials([file(credentialsId: 'GCR_SERVICE_ACCOUNT_KEY', variable: 'GCR_KEY')]) 
+                     
                  {
                    docker.withRegistry('https://gcr.io', 'gcr:GCR_SERVICE_ACCOUNT_KEY')
                      {
                        sh "docker tag ${DOCKER_IMAGE_NAME} ${GCR_IMAGE_NAME}"
                        sh "docker push ${GCR_IMAGE_NAME}"
-                }
-            }
-        }
+                     }
+                 }    
+              }
+             }    
        
        }
    }
