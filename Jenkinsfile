@@ -26,12 +26,14 @@ pipeline
                    }
               }
            }
-          stage('Push to GCR') {
-            steps {
-                withCredentials([file(credentialsId: 'GCR_SERVICE_ACCOUNT_KEY', variable: 'GCR_KEY')]) {
-                    sh "docker login -u _json_key -p '$GCR_KEY' https://gcr.io"
-                    sh "docker tag ${DOCKER_IMAGE_NAME} ${GCR_IMAGE_NAME}"
-                    sh "docker push ${GCR_IMAGE_NAME}"
+          stage('Push to GCR')
+             {
+               steps 
+                 {
+                   docker.withRegistry('https://gcr.io', 'gcr:[google]')
+                     {
+                       sh "docker tag ${DOCKER_IMAGE_NAME} ${GCR_IMAGE_NAME}"
+                       sh "docker push ${GCR_IMAGE_NAME}"
                 }
             }
         }
