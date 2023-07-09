@@ -26,9 +26,7 @@ pipeline
                    }
               }
            }
-          stage('Build image') {
-  app = docker.build("[jenkins-cicd-391104]/${DOCKER_IMAGE_NAME}")
-}
+
 stage('Push image') 
           {
              docker.withRegistry('https://eu.gcr.io', 'gcr:[CREDENTIALS_ID]') 
