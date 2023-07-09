@@ -4,8 +4,8 @@ pipeline
       environment 
       {
         DOCKER_IMAGE_NAME = "hdfcero-master:${env.BUILD_NUMBER}"
-        //GCR_IMAGE_NAME = "gcr.io/${jenkins-cicd-391104}/${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}"
-        //GCR_SERVICE_ACCOUNT_KEY = credentials('gcp')
+         CREDENTIALS_ID = 'google-gcr'
+         
       }
     stages 
        {
@@ -26,7 +26,17 @@ pipeline
                    }
               }
            }
-          
+          stage('Build image') {
+  app = docker.build("[jenkins-cicd-391104]/${DOCKER_IMAGE_NAME}")
+}
+stage('Push image') 
+          {
+             docker.withRegistry('https://eu.gcr.io', 'gcr:[CREDENTIALS_ID]') 
+             {
+               app.push("${env.BUILD_NUMBER}")
+               app.push("latest")
+             }
+           }
        
        }
    }
