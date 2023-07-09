@@ -6,13 +6,12 @@ WORKDIR /usr/src/app
 
 COPY package.json ./
 COPY ./src ./src
+COPY ./db ./db
 COPY ./configs ./configs
 COPY ./nest-cli.json ./
 COPY ./tsconfig.build.json ./
 COPY ./tsconfig.json ./
 
-RUN npm install -g @nestjs/cli
-RUN npm cache clean --force
 RUN npm install
 
 RUN npm run build
