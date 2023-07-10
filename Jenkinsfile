@@ -6,8 +6,8 @@ pipeline
         DOCKER_IMAGE_NAME = "hdfcero-master:${env.BUILD_NUMBER}"
          CREDENTIALS_ID = 'google'
          PROJECT_ID = '	jenkins-cicd-391104'
-         GKE_CLUSTER = 'jenkins-k8s-autopilot-cluster-1'
-         GKE_ZONE = 'asia-south1'
+         GKE_CLUSTER = 'jenkins-gcr'
+         GKE_ZONE = 'australia-southeast1'
          NAMESPACE = 'default'
          
       }
