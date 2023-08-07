@@ -30,6 +30,11 @@ pipeline
                    }
               }
            }
+           stage('Snyk Security Scan') {
+            steps {
+                snykSecurityScan()
+            }
+        }
 
           stage('Tag and Push') 
           {
