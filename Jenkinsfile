@@ -8,8 +8,7 @@ pipeline
          PROJECT_ID = '	jenkins-cicd-391104'
          GKE_CLUSTER = 'jenkins-gcr'
          GKE_ZONE = 'australia-southeast1'
-         NAMESPACE = 'default'
-         
+         NAMESPACE = 'default' 
       }
     stages 
        {
